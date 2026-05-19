@@ -51,8 +51,8 @@ export default function Navbar() {
           {/* Right Actions */}
           <div className="hidden md:flex gap-2">
             <ModeToggle />
-            <Button  className="bg-sky-400 dark:text-white text-gray-800" > <FaUserPlus />Sign Up</Button>
-            <Button className="bg-purple-500 dark:text-white text-gray-800"> <FiLogIn />Login</Button>
+            <Button  className="bg-sky-300 dark:text-white text-gray-800" > <FaUserPlus />Sign Up</Button>
+            <Button className="bg-purple-300 dark:text-white text-gray-800"> <FiLogIn />Login</Button>
           </div>
 
 
@@ -61,7 +61,7 @@ export default function Navbar() {
           <Sheet>
 
             {/* //show this in the right5 side of the screen on mobile device */}
-            <div className="bg-red-500 md:hidden">
+            <div className="md:hidden">
               <ModeToggle  />
             </div>
 
@@ -89,8 +89,8 @@ export default function Navbar() {
                 ))}
  
                 <div className="mt-4 flex flex-col gap-2">
-                  <Button className="bg-purple-500 dark:text-white text-gray-800">Login</Button>
-                  <Button className="bg-sky-400 dark:text-white text-gray-800">Sign Up</Button>
+                  <Button className="bg-purple-300 dark:text-white text-gray-800">Login</Button>
+                  <Button className="bg-sky-300 dark:text-white text-gray-800">Sign Up</Button>
                 </div>
               </div>
             </SheetContent>
