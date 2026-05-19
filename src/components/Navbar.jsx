@@ -23,7 +23,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow opacity-95">
       <div className="border-b">
         <div className="container mx-auto flex h-16 items-center justify-between px-2 md:px-4">
 
@@ -51,8 +51,8 @@ export default function Navbar() {
           {/* Right Actions */}
           <div className="hidden md:flex gap-2">
             <ModeToggle />
-            <Button  className="bg-sky-300 dark:text-white text-gray-800" > <FaUserPlus />Sign Up</Button>
-            <Button className="bg-purple-300 dark:text-white text-gray-800"> <FiLogIn />Login</Button>
+            <Link href="/signup"><Button  className="bg-sky-300 dark:text-white text-gray-800" > <FaUserPlus />Sign Up</Button></Link>
+            <Link href="/login"><Button className="bg-purple-300 dark:text-white text-gray-800"> <FiLogIn />Login</Button></Link>
           </div>
 
 
@@ -89,8 +89,12 @@ export default function Navbar() {
                 ))}
  
                 <div className="mt-4 flex flex-col gap-2">
-                  <Button className="bg-purple-300 dark:text-white text-gray-800">Login</Button>
-                  <Button className="bg-sky-300 dark:text-white text-gray-800">Sign Up</Button>
+                  <Link href="/login">
+                    <Button className="bg-purple-300 dark:text-white text-gray-800">Login</Button>
+                  </Link>
+                  <Link href="/signup">
+                    <Button className="bg-sky-300 dark:text-white text-gray-800">Sign Up</Button>
+                  </Link>
                 </div>
               </div>
             </SheetContent>

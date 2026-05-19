@@ -33,6 +33,11 @@ const stats = [
 const CountUpSection = () => {
   return (
     <section className="container mx-auto px-4 py-16">
+      <motion.h2 initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+        viewport={{ once: true }}
+        className="text-3xl text-gray-500 py-5 dark:text-white font-bold text-center">Our Achievement</motion.h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((item, index) => (
           <motion.div
