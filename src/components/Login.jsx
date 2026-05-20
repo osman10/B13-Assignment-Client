@@ -16,33 +16,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function SignUp() {
+export function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
-        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const image = form.image.value;
-        // TODO: Implement signup logic here, e.g., send data to backend API
+        // TODO: Implement login logic here, e.g., send data to backend API
     };
 
     return (
         <div className="container mx-auto p-4 min-h-screen flex flex-col items-center justify-center">
 
             <h1 className="text-3xl font-bold text-center">
-                Signup Page
+                Login Page
             </h1>
 
             <p className="text-center my-4 text-muted-foreground">
-                Welcome! Please sign up for an account.
+                Welcome! Please login to your account.
             </p>
 
             <Card className="w-full max-w-sm">
                 <CardHeader>
-                     <CardDescription>
-                        Enter your name, email and password below
-                        to create an account
+                    <CardDescription>
+                        Enter your email and password below
+                        to login to your account
                     </CardDescription>
                 </CardHeader>
 
@@ -50,19 +48,6 @@ export function SignUp() {
                     <form onSubmit={handleSubmit}>
                         <div className="flex flex-col gap-6">
 
-                            {/* Name */}
-                            <div className="grid gap-2">
-                                <Label htmlFor="name">
-                                    Name
-                                </Label>
-
-                                <Input
-                                    id="name"
-                                    type="text"
-                                    placeholder="John Doe"
-                                    required
-                                />
-                            </div>
 
                             {/* Email */}
                             <div className="grid gap-2">
@@ -92,25 +77,14 @@ export function SignUp() {
                                 />
                             </div>
 
-                            {/* Image URL */}
-                            <div className="grid gap-2">
-                                <Label htmlFor="image">
-                                    Image
-                                </Label>
-
-                                <Input
-                                    id="image"
-                                    type="text"
-                                    placeholder="https://example.com/avatar.jpg"
-                                />
-                            </div>
+        
                         </div>
 
                         <Button
                             type="submit"
                             className="w-full mt-6"
                         >
-                            Signup
+                            Login
                         </Button>
                     </form>
                 </CardContent>
@@ -118,12 +92,12 @@ export function SignUp() {
                 <CardFooter className="flex flex-col gap-4">
 
                     <p className="text-sm text-center">
-                        Already have an account?{" "}
+                        Dont have an account?{" "}
                         <Link
-                            href="/login"
+                            href="/signup"
                             className="text-blue-500 hover:underline"
                         >
-                            Login
+                            Signup
                         </Link>
                     </p>
 

@@ -3,6 +3,8 @@
 import Tutor from "@/assets/Tutor.jpeg";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { GrUserManager } from "react-icons/gr";
+import Link from "next/link";
 
 const Hero = () => {
     return (
@@ -34,16 +36,20 @@ const Hero = () => {
                         Connect with qualified tutors in your area and advance your learning journey.
                     </motion.p>
 
-                    <motion.button
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.6, duration: 0.4 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-sky-400 text-white px-4 py-2 rounded-md hover:bg-sky-500 w-fit"
-                    >
-                        Explore Tutors
-                    </motion.button>
+                    <Link href="/tutors">
+                        <motion.button
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.6, duration: 0.4 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-sky-400 text-white px-4 py-2 rounded-md hover:bg-sky-500 w-fit flex items-center gap-2 transition"
+                        >
+                            <GrUserManager />Explore Tutors
+                        </motion.button>
+                    </Link>
+
+
                 </motion.div>
 
                 {/* Right Image */}

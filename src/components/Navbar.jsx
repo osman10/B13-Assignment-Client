@@ -9,12 +9,13 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ModeToggle } from "./ModeToggle";
 import { FiLogIn } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa";
-import { RiContactsLine, RiHome2Line, RiInfoCardLine, RiServiceLine } from "react-icons/ri";
+import { RiContactsLine, RiHome2Line, RiServiceLine } from "react-icons/ri";
 import { usePathname } from "next/navigation";
+import { GrUserManager } from "react-icons/gr";
 
 const navItems = [
   { name: "Home", href: "/", icon: <RiHome2Line /> },
-  { name: "About", href: "/about", icon: <RiInfoCardLine /> },
+  { name: "Tutors", href: "/tutors", icon: <GrUserManager />  },
   { name: "Services", href: "/services", icon: <RiServiceLine /> },
   { name: "Contact", href: "/contact", icon: <RiContactsLine /> },
 ];
@@ -67,7 +68,7 @@ export default function Navbar() {
 
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
-                <Menu className="w-5 h-5" />
+                <Menu className="w-5 h-5 text-gray-500" />
               </Button>
             </SheetTrigger>
              
@@ -90,10 +91,10 @@ export default function Navbar() {
  
                 <div className="mt-4 flex flex-col gap-2">
                   <Link href="/login">
-                    <Button className="bg-purple-300 dark:text-white text-gray-800">Login</Button>
+                    <Button className="bg-purple-300 dark:text-white text-gray-800 w-full">Login</Button>
                   </Link>
                   <Link href="/signup">
-                    <Button className="bg-sky-300 dark:text-white text-gray-800">Sign Up</Button>
+                    <Button className="bg-sky-300 dark:text-white text-gray-800 w-full">Sign Up</Button>
                   </Link>
                 </div>
               </div>
