@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+TutorFinder Client
 
-## Getting Started
+Frontend client application for TutorFinder — a platform where students can easily find tutors based on hourly fees and connect for learning sessions.
 
-First, run the development server:
+🚀 Features
+🎨 Modern and responsive UI
+🔍 Browse and search tutors
+⚡ Smooth animations with Framer Motion
+🖼️ Interactive sliders using SwiperJS
+🔔 Beautiful toast notifications with React Toastify
+📱 Mobile-friendly design
+🌐 Built with Next.js for fast performance
+🛠️ Technologies Used
+Next.js – React framework
+SwiperJS – Slider & carousel functionality
+Framer Motion – Animations and transitions
+React Toastify – Toast notifications
+CSS / Tailwind CSS – Styling
+📦 Installation
 
-```bash
+Clone the repository:
+
+git clone https://github.com/your-username/tutorfinder-client.git
+
+Move into the project directory:
+
+cd tutorfinder-client
+
+Install dependencies:
+
+npm install
+⚙️ Environment Variables
+
+Create a .env.local file in the root directory and add:
+
+NEXT_PUBLIC_API_URL=http://localhost:5000
+▶️ Run the Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+🎞️ SwiperJS Example
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+✨ Framer Motion Example
+import { motion } from 'framer-motion';
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+>
+  TutorFinder
+</motion.div>
+🔔 React Toastify Example
+import { toast } from 'react-toastify';
 
-## Learn More
+toast.success("Login Successful!");
+📌 Future Improvements
+Authentication system
+Real-time messaging
+Tutor booking system
+Payment gateway integration
+Dark mode support
+👨‍💻 Author
 
-To learn more about Next.js, take a look at the following resources:
+Developed by Osman Gonio
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License.
