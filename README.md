@@ -62,7 +62,7 @@ Payment gateway integration
 Dark mode support
 👨‍💻 Author
 
-Developed by Osman Gonio
+Developed by Osman Goni
 
 📄 License
 
