@@ -2,7 +2,7 @@
 // get tutors data from the backend
 export const tutorsData = async () => {
   try {
-    const response = await fetch("http://localhost:5000/tutors", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`, {
       cache: "no-store",
     });
     if (!response.ok) {
@@ -20,7 +20,7 @@ export const tutorsData = async () => {
 
 export const getSingleTutor = async (id) => {
   const response = await fetch(
-    `http://localhost:5000/tutors/${id}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
     {
       cache: "no-store",
     }

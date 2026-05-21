@@ -10,21 +10,75 @@ import {
     CardDescription,
     CardFooter,
     CardHeader,
-    CardTitle,
 } from "@/components/ui/card";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export function Login() {
-    const handleSubmit = (event) => {
+    const [login, setLogin]=useState("Login")
+    const[loginWithGoogle, setLoginWithGoogle]=useState("Login with Google")
+
+    // Email login
+    const handleSubmit = async (event) => {
         event.preventDefault();
+
         const form = event.currentTarget;
+
         const email = form.email.value;
         const password = form.password.value;
-        // TODO: Implement login logic here, e.g., send data to backend API
+
+        const { data, error } = await authClient.signIn.email(
+            {
+                email,
+                password,
+                callbackURL: "/",
+                rememberMe: false,
+            },
+            {
+                onRequest: () => {
+                    setLogin("Signing in...");
+                },
+                onSuccess: () => {
+                    toast.success("Login successful");
+                    setLogin("Login");
+                },
+                onError: (ctx) => {
+                    toast.error(ctx.error.message);
+                    setLogin("Login");
+                },
+            }
+        );
+
+        // console.log(data, error);
     };
 
+    // // Google login
+    // const handleGoogleLogin = async () => {
+    //     await authClient.signIn.social({
+    //         provider: "google",
+    //         callbackURL: "/",
+    //     });
+    //     setLoginWithGoogle("Signing in...");
+    // };
+
+    // Google login
+const handleGoogleLogin = async () => {
+    try {
+        setLoginWithGoogle("Signing in...");
+
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/",
+        });
+    } catch (error) {
+        console.error("Google login failed:", error);
+        setLoginWithGoogle("Continue with Google");
+    }
+};
     return (
         <div className="container mx-auto p-4 min-h-screen flex flex-col items-center justify-center">
 
@@ -48,7 +102,6 @@ export function Login() {
                     <form onSubmit={handleSubmit}>
                         <div className="flex flex-col gap-6">
 
-
                             {/* Email */}
                             <div className="grid gap-2">
                                 <Label htmlFor="email">
@@ -57,6 +110,7 @@ export function Login() {
 
                                 <Input
                                     id="email"
+                                    name="email"
                                     type="email"
                                     placeholder="m@example.com"
                                     required
@@ -71,20 +125,19 @@ export function Login() {
 
                                 <Input
                                     id="password"
+                                    name="password"
                                     type="password"
                                     placeholder="Enter your password"
                                     required
                                 />
                             </div>
-
-        
                         </div>
 
                         <Button
                             type="submit"
                             className="w-full mt-6"
                         >
-                            Login
+                            {login}
                         </Button>
                     </form>
                 </CardContent>
@@ -92,7 +145,7 @@ export function Login() {
                 <CardFooter className="flex flex-col gap-4">
 
                     <p className="text-sm text-center">
-                        Dont have an account?{" "}
+                        Don't have an account?{" "}
                         <Link
                             href="/signup"
                             className="text-blue-500 hover:underline"
@@ -102,11 +155,13 @@ export function Login() {
                     </p>
 
                     <Button
+                        type="button"
                         variant="outline"
                         className="w-full"
+                        onClick={handleGoogleLogin}
                     >
                         <FcGoogle className="mr-2 text-lg" />
-                        Login with Google
+                        {loginWithGoogle}
                     </Button>
                 </CardFooter>
             </Card>

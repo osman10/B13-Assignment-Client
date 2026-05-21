@@ -22,3 +22,9 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* Remove Swiper's default arrow content */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: none;
+}

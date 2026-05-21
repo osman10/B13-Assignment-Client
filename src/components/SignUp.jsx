@@ -15,17 +15,40 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authClient } from "@/lib/auth-client";
 
 export function SignUp() {
-    const handleSubmit = (event) => {
+    const handleSubmit =async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
+
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
         const image = form.image.value;
         // TODO: Implement signup logic here, e.g., send data to backend API
-    };
+
+
+const { data, error } = await authClient.signUp.email({
+        email, // user email address
+        password, // user password -> min 8 characters by default
+        name, // user display name
+        image, // User image URL (optional)
+        callbackURL: "/" // A URL to redirect to after the user verifies their email (optional)
+    }, {
+        onRequest: (ctx) => {
+            //show loading
+        },
+        onSuccess: (ctx) => {
+            //redirect to the dashboard or sign in page
+            toast.success("Signup successful! Please check your email to verify your account.");
+        },
+        onError: (ctx) => {
+            // display the error message
+            toast.error(ctx.error.message);
+        },
+});
+};
 
     return (
         <div className="container mx-auto p-4 min-h-screen flex flex-col items-center justify-center">
