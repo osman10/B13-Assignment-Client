@@ -16,6 +16,25 @@ export const tutorsData = async () => {
 };
 
 
+// booking data
+export const bookings = async () => {
+  try {
+    const booking = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`, {
+
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch tutors");
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching tutors:", error);
+    return [];
+  }
+}
+
+
+
 
 
 export const getSingleTutor = async (id) => {
@@ -28,3 +47,4 @@ export const getSingleTutor = async (id) => {
 
   return response.json();
 };
+
