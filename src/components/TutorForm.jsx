@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const TutorForm = () => {
+  const [addTutor, setAddTutor] = useState("Add Tutor");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     TutorName: "",
     PhotoURL: "",
@@ -28,52 +31,57 @@ const TutorForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setAddTutor("Adding tutor...");
 
-   const res = await fetch('http://localhost:5000/addtutor', {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    ...formData,
-    HourlyFee: Number(formData.HourlyFee),
-    TotalSlots: Number(formData.TotalSlots),
-  }),
-});
-
-    const data = await res.json();
-    // console.log("Response:", data);
-
-    if (res.ok) {
-      toast("Tutor added successfully!");
-      setFormData({
-        TutorName: "",
-        PhotoURL: "",
-        Subject: "",
-        HourlyFee: "",
-        TotalSlots: "",
-        Available: "",
-        SessionStartDate: "",
-        SessionEndDate: "",
-        Institution: "",
-        Experience: "",
-        Location: "",
-        TeachingMode: "Online",
-        Description: "",
+    try {
+      const res = await fetch("http://localhost:5000/addtutor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          HourlyFee: Number(formData.HourlyFee),
+          TotalSlots: Number(formData.TotalSlots),
+        }),
       });
-    } else {
-      toast.error("Something went wrong!");
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Tutor added successfully!");
+        setFormData({
+          TutorName: "",
+          PhotoURL: "",
+          Subject: "",
+          HourlyFee: "",
+          TotalSlots: "",
+          Available: "",
+          SessionStartDate: "",
+          SessionEndDate: "",
+          Institution: "",
+          Experience: "",
+          Location: "",
+          TeachingMode: "Online",
+          Description: "",
+        });
+      } else {
+        toast.error(data.message || "Something went wrong!");
+      }
+    } catch (error) {
+      toast.error("Network error. Please try again.");
+    } finally {
+      setAddTutor("Add Tutor");
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="mx-auto max-w-3xl p-6">
-      <h1 className="mb-6 text-center text-2xl font-bold">
-        Add New Tutor
-      </h1>
+      <h1 className="mb-6 text-center text-2xl font-bold">Add New Tutor</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-
         <input
           type="text"
           name="TutorName"
@@ -114,7 +122,6 @@ const TutorForm = () => {
             className="w-full rounded border p-2"
             required
           />
-
           <input
             type="number"
             name="TotalSlots"
@@ -144,7 +151,6 @@ const TutorForm = () => {
             className="w-full rounded border p-2"
             required
           />
-
           <input
             type="date"
             name="SessionEndDate"
@@ -203,9 +209,12 @@ const TutorForm = () => {
 
         <button
           type="submit"
-          className="w-full rounded bg-black py-2 text-white hover:bg-gray-800"
+          disabled={isSubmitting}
+          className={`w-full rounded py-2 text-white ${
+            isSubmitting ? "bg-gray-500 cursor-not-allowed" : "bg-black hover:bg-gray-800"
+          }`}
         >
-          Add Tutor
+          {addTutor}
         </button>
       </form>
     </div>
