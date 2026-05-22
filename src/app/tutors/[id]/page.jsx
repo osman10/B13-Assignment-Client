@@ -15,7 +15,7 @@ const TutorDetailsPage = async ({ params }) => {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="border rounded-xl p-4 shadow flex flex-col md:flex-row gap-10 items-center">
+      <div className="border rounded-xl p-4 shadow flex flex-col md:flex-row gap-10 items-center text-gray-800  dark:bg-gray-800">
         {/* Tutor Photo */}
         <div className="flex-1 ">
           <Image src={PhotoURL} alt={TutorName} width={100} height={100} className="w-full rounded-lg" />

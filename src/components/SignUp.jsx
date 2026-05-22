@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 export function SignUp() {
     const handleSubmit =async (event) => {
@@ -42,6 +44,7 @@ const { data, error } = await authClient.signUp.email({
         onSuccess: (ctx) => {
             //redirect to the dashboard or sign in page
             toast.success("Signup successful! Please check your email to verify your account.");
+            redirect("/login");
         },
         onError: (ctx) => {
             // display the error message
