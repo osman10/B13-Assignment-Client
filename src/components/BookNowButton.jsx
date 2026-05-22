@@ -37,6 +37,7 @@ export default function BookNowButton({ TutorName }) {
       userEmail: form.userEmail.value,
       tutorName: form.tutorName.value,
       phoneNumber: form.phoneNumber.value,
+      status: "Confirmed"
     };
 
     try {
