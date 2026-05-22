@@ -18,7 +18,7 @@ const handleBookNow = async () => {
 
   try {
 
-    const response = await fetch(`https://b13-assignment-server.vercel.app/bookings`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`, { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,9 +41,7 @@ const handleBookNow = async () => {
   } catch (error) {
     // console.error("Network or server error:", error);
     toast.error(error.message || "An error occurred while creating the booking.");
-
   }
-
 };
 
 
