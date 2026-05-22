@@ -94,7 +94,7 @@ const TutorDetailsPage = async ({ params }) => {
             </table>
           </div>
           <div>
-            <BookNowButton />
+            <BookNowButton TutorName={TutorName} />
           </div>
           </div>
         </div>
