@@ -20,7 +20,7 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function BookNowButton({ TutorName }) {
+export default function BookNowButton({ TutorName, id }) {
   const { data: session } = authClient.useSession();
 
   const userName = session?.user?.name || "";
