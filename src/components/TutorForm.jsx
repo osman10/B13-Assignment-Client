@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const TutorForm = () => {
+  const [token, setToken] = useState("");
   const [addTutor, setAddTutor] = useState("Add Tutor");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -22,6 +24,22 @@ const TutorForm = () => {
     Description: "",
   });
 
+// 1. Get session  token
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        const session = await authClient.getSession();
+        const { data: tokenData } = await authClient.token();
+
+        setToken(tokenData?.token || "");
+      } catch (err) {
+        console.error("Auth error:", err);
+      }
+    };
+    initAuth();
+  }, []);
+
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -35,11 +53,12 @@ const TutorForm = () => {
     setAddTutor("Adding tutor...");
 
     try {
-      
+
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/addtutor`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           ...formData,
@@ -193,10 +212,10 @@ const TutorForm = () => {
           name="TeachingMode"
           value={formData.TeachingMode}
           onChange={handleChange}
-          className="w-full rounded border p-2"
+          className="w-full rounded border p-2 "
         >
-          <option value="Online">Online</option>
-          <option value="Offline">Offline</option>
+          <option value="Online" className="dark:text-black">Online</option>
+          <option value="Offline" className="dark:text-black">Offline</option>
         </select>
 
         <textarea
@@ -211,7 +230,7 @@ const TutorForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full rounded py-2 text-white ${
+          className={`w-full rounded py-2 text-white dark:bg-white dark:text-black dark:hover:bg-white/90 ${
             isSubmitting ? "bg-gray-500 cursor-not-allowed" : "bg-black hover:bg-gray-800"
           }`}
         >
