@@ -20,37 +20,51 @@ import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
 
 export function SignUp() {
-    const handleSubmit =async (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        const image = form.image.value;
-        // TODO: Implement signup logic here, e.g., send data to backend API
+  const form = event.currentTarget;
 
+  const name = form.name.value;
+  const email = form.email.value;
+  const password = form.password.value;
+  const image = form.image.value;
 
-const { data, error } = await authClient.signUp.email({
-        email, // user email address
-        password, // user password -> min 8 characters by default
-        name, // user display name
-        image, // User image URL (optional)
-        callbackURL: "/" // A URL to redirect to after the user verifies their email (optional)
-    }, {
-        onRequest: (ctx) => {
-            //show loading
-        },
-        onSuccess: (ctx) => {
-            //redirect to the dashboard or sign in page
-            toast.success("Signup successful! Please check your email to verify your account.");
-            redirect("/login");
-        },
-        onError: (ctx) => {
-            // display the error message
-            toast.error(ctx.error.message);
-        },
-});
+  // Password Validation
+  if (password.length < 6) {
+    toast.error("Password must be at least 6 characters long.");
+    return;
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    toast.error("Password must contain at least one uppercase letter.");
+    return;
+  }
+
+  if (!/[a-z]/.test(password)) {
+    toast.error("Password must contain at least one lowercase letter.");
+    return;
+  }
+
+  await authClient.signUp.email(
+    {
+      email,
+      password,
+      name,
+      image,
+      callbackURL: "/",
+    },
+    {
+      onSuccess: () => {
+        toast.success("Account created successfully.");
+        window.location.href = "/login";
+      },
+
+      onError: (ctx) => {
+        toast.error(ctx.error.message);
+      },
+    }
+  );
 };
 
     return (

@@ -19,8 +19,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 export function Login() {
-    const [login, setLogin]=useState("Login")
-    const[loginWithGoogle, setLoginWithGoogle]=useState("Login with Google")
+    const [login, setLogin] = useState("Login")
+    const [loginWithGoogle, setLoginWithGoogle] = useState("Login with Google")
 
     // Email login
     const handleSubmit = async (event) => {
@@ -56,29 +56,21 @@ export function Login() {
         // console.log(data, error);
     };
 
-    // // Google login
-    // const handleGoogleLogin = async () => {
-    //     await authClient.signIn.social({
-    //         provider: "google",
-    //         callbackURL: "/",
-    //     });
-    //     setLoginWithGoogle("Signing in...");
-    // };
 
-    // Google login
-const handleGoogleLogin = async () => {
-    try {
-        setLoginWithGoogle("Signing in...");
+    const handleGoogleLogin = async () => {
+        try {
+            setLoginWithGoogle("Signing in...");
 
-        await authClient.signIn.social({
-            provider: "google",
-            callbackURL: "/",
-        });
-    } catch (error) {
-        console.error("Google login failed:", error);
-        setLoginWithGoogle("Continue with Google");
-    }
-};
+            await authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+        } catch (error) {
+            console.log("Google login failed:", error);
+            setLoginWithGoogle("Continue with Google");
+            toast.error(error)
+        }
+    };
     return (
         <div className="container mx-auto p-4 min-h-screen flex flex-col items-center justify-center">
 
@@ -139,7 +131,17 @@ const handleGoogleLogin = async () => {
                         >
                             {login}
                         </Button>
+
                     </form>
+                    {/* Forget Password */}
+                    <div className="flex justify-end mt-2">
+                        <Link
+                            href="#"
+                            className="text-sm font-medium text-sky-600 transition-colors duration-200 hover:text-sky-700 hover:underline"
+                        >
+                            Forgot Password?
+                        </Link>
+                    </div>
                 </CardContent>
 
                 <CardFooter className="flex flex-col gap-4">

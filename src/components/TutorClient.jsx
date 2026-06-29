@@ -95,7 +95,7 @@ const TutorClient = ({ tutors = [] }) => {
 
               <div className="p-5">
                 <div className="mb-2 flex justify-between">
-                  <h2 className="text-xl font-bold">{tutor.TutorName}</h2>
+                  <h2 className="text-xl font-bold text-slate-800">{tutor.TutorName}</h2>
                   <span className="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700">
                     {tutor.Subject}
                   </span>

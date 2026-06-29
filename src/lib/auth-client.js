@@ -1,10 +1,12 @@
 import { createAuthClient } from "better-auth/react";
+import { jwtClient } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
-  // Optional if frontend and backend are on the same domain
-  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
-});
+    /** The base URL of the server (optional if you're using the same domain) */
+    baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+    plugins: [
+        jwtClient()
+    ]
+})
 
-// Use the same client instance
-export const { signIn, signUp, useSession } = authClient;
-
+export const { signIn, signUp, useSession } = createAuthClient()
