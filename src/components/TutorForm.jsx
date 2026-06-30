@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 
 const TutorForm = () => {
   const [token, setToken] = useState("");
+  const [userId, setUserId ]= useState("");
+
+
   const [addTutor, setAddTutor] = useState("Add Tutor");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -21,16 +24,16 @@ const TutorForm = () => {
     Experience: "",
     Location: "",
     TeachingMode: "Online",
-    Description: "",
+    Description: ""
   });
 
-// 1. Get session  token
+  // 1. Get session  info
   useEffect(() => {
     const initAuth = async () => {
       try {
         const session = await authClient.getSession();
         const { data: tokenData } = await authClient.token();
-
+        setUserId(session.data.user.id || "")
         setToken(tokenData?.token || "");
       } catch (err) {
         console.error("Auth error:", err);
@@ -42,8 +45,7 @@ const TutorForm = () => {
 
   const handleChange = (e) => {
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+      ...formData,     [e.target.name]: e.target.value,
     });
   };
 
@@ -61,7 +63,7 @@ const TutorForm = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          ...formData,
+          ...formData, userId,
           HourlyFee: Number(formData.HourlyFee),
           TotalSlots: Number(formData.TotalSlots),
         }),
@@ -85,6 +87,7 @@ const TutorForm = () => {
           Location: "",
           TeachingMode: "Online",
           Description: "",
+          userId,
         });
       } else {
         toast.error(data.message || "Something went wrong!");
@@ -99,7 +102,9 @@ const TutorForm = () => {
 
   return (
     <div className="mx-auto max-w-3xl p-6">
-      <h1 className="mb-6 text-center text-2xl font-bold">Add New Tutor</h1>
+      <h1 className="mb-8 text-center text-4xl font-extrabold bg-gradient-to-r from-sky-600 to-cyan-500 bg-clip-text text-transparent">
+        Add New Tutor
+      </h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -216,6 +221,7 @@ const TutorForm = () => {
         >
           <option value="Online" className="dark:text-black">Online</option>
           <option value="Offline" className="dark:text-black">Offline</option>
+          <option value="Both" className="dark:text-black">Both</option>
         </select>
 
         <textarea
@@ -230,9 +236,8 @@ const TutorForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full rounded py-2 text-white dark:bg-white dark:text-black dark:hover:bg-white/90 ${
-            isSubmitting ? "bg-gray-500 cursor-not-allowed" : "bg-black hover:bg-gray-800"
-          }`}
+          className={`w-full rounded py-2 text-white dark:bg-white dark:text-black dark:hover:bg-white/90 ${isSubmitting ? "bg-gray-500 cursor-not-allowed" : "bg-black hover:bg-gray-800"
+            }`}
         >
           {addTutor}
         </button>
