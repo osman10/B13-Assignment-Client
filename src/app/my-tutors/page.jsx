@@ -1,6 +1,7 @@
 "use client";
 
 import Loading from "@/components/Loading";
+import { UpdateTutor } from "@/components/UpdateTutor";
 import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { FaEdit, FaTrashAlt, FaBook, FaDollarSign, FaUserGraduate } from "react-icons/fa";
@@ -48,54 +49,59 @@ const MyTutors = () => {
   }, []);
 
 
-const handleDelete = async (id) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this tutor?"
-  );
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this tutor?"
+    );
 
-  if (!confirmDelete) return;
+    if (!confirmDelete) return;
 
-  try {
-    const { data: tokenData } = await authClient.token();
-    const token = tokenData?.token;
+    try {
+      const { data: tokenData } = await authClient.token();
+      const token = tokenData?.token;
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Delete failed");
       }
-    );
 
-    const data = await res.json();
+      // remove deleted tutor from UI
+      setTutors((prev) =>
+        prev.filter((tutor) => tutor._id !== id)
+      );
 
-    if (!res.ok) {
-      throw new Error(data.message || "Delete failed");
+      alert(data.message);
+
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert(error.message);
     }
-
-    // remove deleted tutor from UI
-    setTutors((prev) =>
-      prev.filter((tutor) => tutor._id !== id)
-    );
-
-    alert(data.message);
-
-  } catch (error) {
-    console.error("Delete error:", error);
-    alert(error.message);
-  }
-};
-
-
-
-  const handleEdit = (id) => {
-    // Example with Next.js router:
-    // router.push(`/dashboard/edit-tutor/${id}`);
-
-    console.log("Edit Tutor:", id);
   };
+
+
+
+  const handleTutorUpdate = (updatedTutor) => {
+    setTutors((prev) =>
+      prev.map((tutor) =>
+        tutor._id === updatedTutor._id
+          ? { ...tutor, ...updatedTutor }
+          : tutor
+      )
+    );
+  };
+
+
 
 
 
@@ -144,16 +150,19 @@ const handleDelete = async (id) => {
                     {/* Buttons */}
                     <div className="flex items-center gap-3">
                       <button
-                        onClick={() => handleUpdate(tutor)}
-                        className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+
+                        className=""
                       >
-                        <FaEdit />
-                        Update
+
+                        <UpdateTutor
+                          tutor={tutor}
+                          onUpdate={handleTutorUpdate}
+                        />
                       </button>
 
                       <button
                         onClick={() => handleDelete(tutor._id)}
-                        className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white"
+                        className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-1 text-white"
                       >
                         <FaTrashAlt />
                         Delete
