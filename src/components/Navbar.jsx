@@ -89,7 +89,7 @@ export default function Navbar() {
 
                 <Link
                   href="/my-tutors"
-                  className={`flex items-center gap-1 text-sm font-medium transition ${pathname === "/addtutor"
+                  className={`flex items-center gap-1 text-sm font-medium transition ${pathname === "/my-tutors"
                     ? "text-sky-400"
                     : "text-muted-foreground hover:text-foreground"
                     }`}

@@ -26,6 +26,7 @@ export default function BookNowButton({ TutorName, }) {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [tutorName, setTutorName] = useState(TutorName || "");
+  const[userId, setUserId] = useState("");
 
 
   // 1. Get session  info
@@ -34,6 +35,7 @@ export default function BookNowButton({ TutorName, }) {
       try {
         const session = await authClient.getSession();
         const { data: tokenData } = await authClient.token();
+        setUserId(session?.data?.user?.id || "");
         setToken(tokenData?.token || "");
         setUserName(session?.data?.user?.name || "");
         setUserEmail(session?.data?.user?.email || "");
@@ -56,6 +58,7 @@ export default function BookNowButton({ TutorName, }) {
     const form = e.target;
 
     const bookingData = {
+      userId: userId,
       userName: form.userName.value,
       userEmail: form.userEmail.value,
       tutorName: form.tutorName.value,
