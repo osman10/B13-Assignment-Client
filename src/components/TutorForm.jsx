@@ -35,6 +35,8 @@ const TutorForm = () => {
         const { data: tokenData } = await authClient.token();
         setUserId(session.data.user.id || "")
         setToken(tokenData?.token || "");
+
+        
       } catch (err) {
         console.error("Auth error:", err);
       }

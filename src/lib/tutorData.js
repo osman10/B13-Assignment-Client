@@ -37,14 +37,3 @@ export const bookings = async () => {
 
 
 
-export const getSingleTutor = async (id) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  return response.json();
-};
-

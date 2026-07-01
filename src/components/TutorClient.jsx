@@ -100,7 +100,7 @@ const TutorClient = ({ tutors = [] }) => {
 
               <div className="space-y-3 p-5">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold">
+                  <h2 className="text-xl font-bold text-slate-800">
                     {tutor.TutorName}
                   </h2>
 

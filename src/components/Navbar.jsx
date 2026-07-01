@@ -2,14 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 import { Menu } from "lucide-react";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserPlus, FaUserTie } from "react-icons/fa";
 import { RiHome2Line } from "react-icons/ri";
 import { GrUserManager } from "react-icons/gr";
 import { PiStudent } from "react-icons/pi";
+
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -35,6 +36,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     await authClient.signOut();
     toast.success("Logged out successfully");
+    redirect("/");
   };
 
   return (
@@ -69,7 +71,7 @@ export default function Navbar() {
                 : "text-muted-foreground hover:text-foreground"
                 }`}
             >
-              <GrUserManager />
+              <FaUserTie />
               Tutors
             </Link>
 
@@ -82,7 +84,7 @@ export default function Navbar() {
                     : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
-                  + Add Tutor
+                  <FaUserPlus /> Add Tutor
                 </Link>
 
                 <Link
@@ -93,7 +95,7 @@ export default function Navbar() {
                     }`}
                 >
                   <GrUserManager />
-                  + My Tutors
+                  My Tutors
                 </Link>
 
                 <Link

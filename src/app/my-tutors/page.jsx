@@ -10,7 +10,7 @@ const MyTutors = () => {
   const [tutors, setTutors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log("Tutors:", tutors)
+
   useEffect(() => {
     const fetchTutors = async () => {
       try {

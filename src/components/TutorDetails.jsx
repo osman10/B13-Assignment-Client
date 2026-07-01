@@ -29,7 +29,8 @@ const TutorDetails = ({ tutor }) => {
 
     const router = useRouter();
     const { data: session } = authClient.useSession();
-    const [login, setLogin] = useState("Login")
+
+      const [login, setLogin] = useState("Login")
     const [loginWithGoogle, setLoginWithGoogle] = useState("Login with Google")
 
     // Email login
@@ -67,14 +68,6 @@ const TutorDetails = ({ tutor }) => {
         // console.log(data, error);
     };
 
-    // // Google login
-    // const handleGoogleLogin = async () => {
-    //     await authClient.signIn.social({
-    //         provider: "google",
-    //         callbackURL: "/",
-    //     });
-    //     setLoginWithGoogle("Signing in...");
-    // };
 
     // Google login
     const handleGoogleLogin = async () => {

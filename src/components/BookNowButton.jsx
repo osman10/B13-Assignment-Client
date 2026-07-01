@@ -19,17 +19,40 @@ import {
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
 
-export default function BookNowButton({ TutorName, id }) {
-  const { data: session } = authClient.useSession();
+export default function BookNowButton({ TutorName, }) {
+  const [token, setToken] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [tutorName, setTutorName] = useState(TutorName || "");
 
-  const userName = session?.user?.name || "";
-  const userEmail = session?.user?.email || "";
-  const tutorName = TutorName || "";
+
+  // 1. Get session  info
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        const session = await authClient.getSession();
+        const { data: tokenData } = await authClient.token();
+        setToken(tokenData?.token || "");
+        setUserName(session?.data?.user?.name || "");
+        setUserEmail(session?.data?.user?.email || "");
+        setTutorName(TutorName || "");
+
+
+
+      } catch (err) {
+        console.error("Auth error:", err);
+      }
+    };
+    initAuth();
+  }, []);
+
+ 
+
 
   const handleBookNow = async (e) => {
     e.preventDefault();
-
     const form = e.target;
 
     const bookingData = {
@@ -37,7 +60,7 @@ export default function BookNowButton({ TutorName, id }) {
       userEmail: form.userEmail.value,
       tutorName: form.tutorName.value,
       phoneNumber: form.phoneNumber.value,
-      status: "Confirmed"
+      status: "Booked"
     };
 
     try {
@@ -47,6 +70,7 @@ export default function BookNowButton({ TutorName, id }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(bookingData),
         }
