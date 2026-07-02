@@ -26,6 +26,12 @@ import Image from "next/image";
 
 const TutorDetails = ({ tutor }) => {
     const { _id, PhotoURL, TutorName, Subject, HourlyFee, TotalSlots, Available, SessionStartDate, SessionEndDate, Institution, Experience, Location, TeachingMode, Description } = tutor;
+    
+    const tutorInfo = {
+        TotalSlots,
+        SessionStartDate,
+        SessionEndDate,
+    };
 
     const router = useRouter();
     const { data: session } = authClient.useSession();
@@ -262,7 +268,7 @@ const TutorDetails = ({ tutor }) => {
                                         </table>
                                     </div>
                                     <div>
-                                        <BookNowButton TutorName={TutorName} />
+                                        <BookNowButton TutorName={TutorName} tutorInfo={tutorInfo} />
                                     </div>
                                 </div>
                             </div>
